@@ -24,8 +24,11 @@ Vue.createApp({
       const prices = this.plants.map((plant) => plant.price);
       return Math.min(...prices);
     },
-    sortedPlants() {
-      return this.filteredPlants.sort((x, y) => x.price - y.price);
+    sortedPlantsByPrice() {
+      return this.plants.sort((x, y) => x.price - y.price);
+    },
+    sortedPlantsByName() {
+      return this.plants.sort((x, y) => x.title.localeCompare(y.title));
     },
   },
   async created() {
@@ -92,7 +95,8 @@ Vue.createApp({
       this.message = "bis " + this.filterMaxPrice + " €";
     },
     sortPlants() {
-      console.log(this.sortedPlants);
+      console.log(this.sortedPlantsByPrice);
+      console.log(this.sortedPlantsByName);
     },
   },
 }).mount("#app");
