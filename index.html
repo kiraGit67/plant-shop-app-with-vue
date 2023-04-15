@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live-Session Teilzeit Abend – 06.04.2023</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Shop</h1>
+    </header>
+
+    <div id="app" class="content-wrapper">
+        <main>
+            <h2>{{h2text}} {{message}}</h2>
+            <button class="product__button" @click="changeMessage">Change Message</button>
+
+            <!-- Filter -->
+            <div class="filters">
+                <label for="filter-price">Max. Preis</label>
+                <input @input="onFilterPrice($event)" v-model="filterMaxPrice" type="range" :min="minPrice"
+                    :max="maxPrice" step="0.01" id="filter-price">
+            </div>
+
+            <p>Max. Preis: {{filterMaxPrice}} / {{maxPrice}}</p>
+
+            <div class="items">
+                <article class="product card" v-for="plant in filteredPlants" :key="plant.id">
+                    <header class="product__header">
+                        <a href="#">&lt;&lt;{{ plant.title }}</a>
+                        <button class="product__header-button">
+                            <span class="visually-hidden">Add to Wishlist</span>
+                            <svg class="product__header-button-icon" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path
+                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                            </svg>
+                        </button>
+                    </header>
+                    <div class="product__image-wrapper">
+                        <img class="product__image" :src="plant.imgSource" :alt="plant.subtitle"
+                            :title="plant.subtitle">
+                    </div>
+                    <div class="product__details">
+                        <h3 class="product__title">{{plant.title}}</h3>
+                        <p class="product__subtitle">{{plant.subtitle}}</p>
+                        <div class="product__price">$ {{plant.price}}</div>
+                        <p class="product__description">{{plant.description}}</p>
+
+                        <div class="product__actions">
+                            <button class="product__button">Add to Cart</button>
+                            <button class="product__button">Wishlist</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <h2>Add new plant</h2>
+            <div id="add-product-form">
+                <label>Image-Source <br /><input type="text" name="img-source"></label>
+                <label>Title <br /><input type="text" name="title"></label>
+                <label>Subtitle <br /><input type="text" name="subtitle"></label>
+                <label>Description <br /><input type="text" name="description"></label>
+                <label>Price <br /><input type="number" name="price" step="0.01"></label>
+                <button type="submit" class="add-product-button" @click="addNewPlant">Add product</button>
+            </div>
+        </main>
+
+        <aside class="shopping-cart card">
+            <h2>{{asideText}}</h2>
+        </aside>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="ShoppingCart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
