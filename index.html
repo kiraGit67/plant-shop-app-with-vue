@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live-Session Teilzeit Abend – 06.04.2023</title>
+    <title>Plant Shop App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
@@ -19,17 +19,26 @@
 
     <div id="app" class="content-wrapper">
         <main>
-            <h2>{{h2text}} {{message}}</h2>
-            <button class="product__button" @click="changeMessage">Change Message</button>
-
-            <!-- Filter -->
-            <div class="filters">
-                <label for="filter-price">Max. Preis</label>
-                <input @input="onFilterPrice($event)" v-model="filterMaxPrice" type="range" :min="minPrice"
-                    :max="maxPrice" step="0.01" id="filter-price">
+            <div class="message-wrapper">
+                <h2>{{h2text}} {{message}}</h2>
+                <button class="product__button" @click="changeMessage">Change Message</button>
             </div>
 
-            <p>Max. Preis: {{filterMaxPrice}} / {{maxPrice}}</p>
+            <!-- Filter -->
+            <div class="filter-wrapper">
+                <div class="filters">
+                    <label for="filter-price">Max. Preis</label>
+                    <input @input="onFilterPrice($event)" v-model="filterMaxPrice" type="range" :min="minPrice"
+                        :max="maxPrice" step="0.01" id="filter-price">
+                </div>
+                <p>Max. Preis: {{filterMaxPrice}} / {{maxPrice}}</p>
+            </div>
+
+            <!-- Sortierfunktion -->
+            <div class="sort-wrapper">
+                <p>Anzahl Pflanzen: {{ filteredPlants.length }}</p>
+                <button @click="sortPlants" class="product__button">Artikel sortieren</button>
+            </div>
 
             <div class="items">
                 <article class="product card" v-for="plant in filteredPlants" :key="plant.id">
@@ -64,11 +73,18 @@
 
             <h2>Add new plant</h2>
             <div id="add-product-form">
-                <label>Image-Source <br /><input type="text" name="img-source"></label>
-                <label>Title <br /><input type="text" name="title"></label>
-                <label>Subtitle <br /><input type="text" name="subtitle"></label>
-                <label>Description <br /><input type="text" name="description"></label>
-                <label>Price <br /><input type="number" name="price" step="0.01"></label>
+                <fieldset>
+                    <label>Title <br /><input type="text" name="title"></label>
+                    <label>Subtitle <br /><input type="text" name="subtitle"></label>
+                </fieldset>
+                <fieldset>
+                    <label>Description <br /><input type="text" name="description"></label>
+                </fieldset>
+                <fieldset>
+                    <label>Image-Source <br /><input type="text" name="img-source"></label>
+                    <label>Price <br /><input type="number" name="price" step="0.01"></label>
+                </fieldset>
+
                 <button type="submit" class="add-product-button" @click="addNewPlant">Add product</button>
             </div>
         </main>
