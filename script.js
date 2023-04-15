@@ -24,6 +24,9 @@ Vue.createApp({
       const prices = this.plants.map((plant) => plant.price);
       return Math.min(...prices);
     },
+    sortedPlants() {
+      return this.filteredPlants.sort((x, y) => x.price - y.price);
+    },
   },
   async created() {
     await this.getPlants();
@@ -87,6 +90,9 @@ Vue.createApp({
       );
       */
       this.message = "bis " + this.filterMaxPrice + " €";
+    },
+    sortPlants() {
+      console.log(this.sortedPlants);
     },
   },
 }).mount("#app");
