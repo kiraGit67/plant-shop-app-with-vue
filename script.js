@@ -4,7 +4,7 @@ Vue.createApp({
   data() {
     return {
       h2text: "Pflanzen-Artikel",
-      message: "im Überblick",
+      message: "",
       asideText: "Warenkorb",
       plants: [],
       //filteredPlants: [],
@@ -25,10 +25,15 @@ Vue.createApp({
       return Math.min(...prices);
     },
     sortedPlantsByPrice() {
-      return this.plants.sort((x, y) => x.price - y.price);
+      return this.plants.sort(
+        (x, y) => parseFloat(x.price) - parseFloat(y.price)
+      );
     },
-    sortedPlantsByName() {
+    sortedPlantsByNameAsc() {
       return this.plants.sort((x, y) => x.title.localeCompare(y.title));
+    },
+    sortedPlantsByNameDesc() {
+      return this.plants.sort((x, y) => y.title.localeCompare(x.title));
     },
   },
   async created() {
@@ -85,7 +90,7 @@ Vue.createApp({
       this.message = "für jeden Wohnraum";
     },
     onFilterPrice(event) {
-      console.log(event.target.value);
+      //console.log(event.target.value);
       this.filterMaxPrice = event.target.value;
       /*
       this.filteredPlants = this.plants.filter(
@@ -94,9 +99,30 @@ Vue.createApp({
       */
       this.message = "bis " + this.filterMaxPrice + " €";
     },
-    sortPlants() {
-      console.log(this.sortedPlantsByPrice);
-      console.log(this.sortedPlantsByName);
+    sortPlantsByNameAsc() {
+      this.sortedPlantsByNameAsc;
+      this.message = "aufsteigend sortiert";
+    },
+    sortPlantsByNameDesc() {
+      this.sortedPlantsByNameDesc;
+      this.message = "absteigend sortiert";
+    },
+    sortPlantsByPrice() {
+      this.sortedPlantsByPrice;
+      this.message = "nach Preis sortiert";
+    },
+    searchPlants() {
+      const searchTerm = document.querySelector("#search-for").value;
+      console.log(searchTerm);
+      this.plants = this.plants.filter(
+        (plant) =>
+          plant.title.includes(searchTerm) ||
+          plant.subtitle.includes(searchTerm) ||
+          plant.description.includes(searchTerm)
+      );
+      document.querySelector("#search-for").value = "";
+
+      this.message = ", die den Begriff '" + searchTerm + "' enthalten.";
     },
   },
 }).mount("#app");
