@@ -283,4 +283,8 @@ label {
   .search-wrapper {
     margin-bottom: 1.5rem;
   }
+
+  .search-form {
+    width: 100%;
+  }
 }
