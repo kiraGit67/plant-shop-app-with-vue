@@ -21,7 +21,10 @@
         <main>
             <div class="message-wrapper">
                 <h2>{{h2text}} {{message}}</h2>
+                <p>Anzahl Pflanzen: {{ filteredPlants.length }}</p>
+                <!--
                 <button class="product__button" @click="changeMessage">Change Message</button>
+                -->
             </div>
 
             <!-- Filter -->
@@ -36,9 +39,24 @@
 
             <!-- Sortierfunktion -->
             <div class="sort-wrapper">
-                <p>Anzahl Pflanzen: {{ filteredPlants.length }}</p>
-                <button @click="sortPlants" class="product__button">Artikel sortieren</button>
+                <p>Artikel sortieren</p>
+                <div class="sort-buttons">
+                    <button @click="sortPlantsByNameAsc">aufsteigend</button>
+                    <button @click="sortPlantsByNameDesc">absteigend</button>
+                    <button @click="sortPlantsByPrice">nach Preis</button>
+                </div>
             </div>
+
+            <!-- Suchfunktion -->
+            <div class="search-wrapper">
+                <label for="search-for">Suche nach</label>
+                <div class="search-form">
+                    <input type="text" id="search-for">
+                    <button id="search-button" @click="searchPlants">Suche</button>
+                </div>
+            </div>
+
+
 
             <div class="items">
                 <article class="product card" v-for="plant in filteredPlants" :key="plant.id">
