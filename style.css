@@ -22,13 +22,12 @@ h2 {
 }
 
 input[type="range"] {
-  accent-color: olivedrab;
-  border-color: darkgreen;
+  accent-color: darkgreen;
 }
 
 #app {
   display: grid;
-  grid-template-columns: 1fr minmax(min-content, 35rem);
+  grid-template-columns: 1fr minmax(min-content, 25rem);
   gap: 2rem;
   max-width: 100rem;
   margin-inline: auto;
@@ -36,12 +35,41 @@ input[type="range"] {
 
 .message-wrapper,
 .filter-wrapper,
-.sort-wrapper {
+.sort-wrapper,
+.search-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   grid-column-gap: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.search-wrapper {
+  margin-bottom: 0.75rem;
+}
+
+.sort-buttons button,
+.search-form button {
+  all: unset;
+  padding: 0.25rem 0.5rem;
+  background-color: transparent;
+  color: darkgreen;
+  border: 1px solid darkgreen;
+  border-radius: 1rem;
+  transition: transform 1s steps(5), background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out;
+}
+
+.sort-buttons button:hover,
+.search-form button:hover {
+  background-color: darkgreen;
+  color: #aedaaa;
+  transform: translateY(-5px);
+}
+
+.sort-buttons button + button {
+  margin-left: 0.25rem;
 }
 
 .card {
@@ -158,10 +186,6 @@ input[type="range"] {
   color: olivedrab;
 }
 
-.product__button:first-of-type {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
 .product__button:hover {
   background-color: olivedrab;
   color: white;
@@ -201,7 +225,8 @@ label {
 }
 
 #add-product-form input,
-#add-product-form textarea {
+#add-product-form textarea,
+.search-wrapper input {
   width: 100%;
   font-size: 1.1rem;
   padding: 0.35rem 0.75rem;
@@ -221,6 +246,13 @@ label {
   border: 2px solid transparent;
   border-top-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+
+.search-form {
+  width: 75%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 @media screen and (max-width: 1024px) {
@@ -245,5 +277,10 @@ label {
   #add-product-form fieldset {
     display: block;
     margin-bottom: 0.5rem;
+  }
+
+  .sort-wrapper,
+  .search-wrapper {
+    margin-bottom: 1.5rem;
   }
 }
